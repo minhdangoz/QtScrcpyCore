@@ -48,7 +48,7 @@ public:
         QString codecOptions = "";
         // 指定编码器名称(必须是H.264编码器)，""表示默认
         // 例如 CodecName="OMX.qcom.video.encoder.avc"
-        QString codecName = "";
+        QString codecName = "OMX.google.h264.encoder";
 
         QString crop = "";             // 视频裁剪
         bool control = true;           // 安卓端是否接收键鼠控制

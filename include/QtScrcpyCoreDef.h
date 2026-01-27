@@ -26,7 +26,7 @@ struct DeviceParams {
     QString codecOptions = "";
     // 指定编码器名称(必须是H.264编码器)，""表示默认
     // 例如 CodecName="OMX.qcom.video.encoder.avc"
-    QString codecName = "";
+    QString codecName = "OMX.google.h264.encoder";
     quint32 scid = -1; // 随机数，作为localsocket名字后缀，方便同时连接同一个设备多次
 
     QString recordPath = "";          // 视频保存路径

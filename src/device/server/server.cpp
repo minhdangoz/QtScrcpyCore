@@ -180,7 +180,7 @@ bool Server::execute()
         args << QString("codec_options=%1").arg(m_params.codecOptions);
     }
     if (!m_params.codecName.isEmpty()) {
-        args << QString("encoder_name=%1").arg(m_params.codecName);
+        args << QString("video_encoder=%1").arg(m_params.codecName);
     }
     args << "audio=false";
     // 服务端默认-1，可不传
