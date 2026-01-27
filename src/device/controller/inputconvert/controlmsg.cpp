@@ -60,11 +60,11 @@ void ControlMsg::setInjectTouchMsgData(
     m_data.injectTouch.pressure = pressure;
 }
 
-void ControlMsg::setInjectScrollMsgData(QRect position, qint32 hScroll, qint32 vScroll, AndroidMotioneventButtons buttons)
+void ControlMsg::setInjectScrollMsgData(QRect position, float hScroll, float vScroll, AndroidMotioneventButtons buttons)
 {
     m_data.injectScroll.position = position;
-    m_data.injectScroll.hScroll = CLAMP(hScroll, -1, 1);
-    m_data.injectScroll.vScroll = CLAMP(vScroll, -1, 1);
+    m_data.injectScroll.hScroll = hScroll;
+    m_data.injectScroll.vScroll = vScroll;
     m_data.injectScroll.buttons = buttons;
 }
 
@@ -158,12 +158,20 @@ QByteArray ControlMsg::serializeData()
         BufferUtil::write32(buffer, m_data.injectTouch.actionButtons);
         BufferUtil::write32(buffer, m_data.injectTouch.buttons);
     } break;
-    case CMT_INJECT_SCROLL:
+    case CMT_INJECT_SCROLL: {
         writePosition(buffer, m_data.injectScroll.position);
-        BufferUtil::write16(buffer, flostToI16fp(m_data.injectScroll.hScroll));
-        BufferUtil::write16(buffer, flostToI16fp(m_data.injectScroll.vScroll));
+        // Accept values in the range [-16, 16].
+        // Normalize to [-1, 1] in order to use sc_float_to_i16fp().
+        float hscrollNorm = m_data.injectScroll.hScroll / 16;
+        hscrollNorm = CLAMP(hscrollNorm, -1, 1);
+        float vscrollNorm = m_data.injectScroll.vScroll / 16;
+        vscrollNorm = CLAMP(vscrollNorm, -1, 1);
+        qint16 hScroll = flostToI16fp(hscrollNorm);
+        qint16 vScroll = flostToI16fp(vscrollNorm);
+        BufferUtil::write16(buffer, (quint16)hScroll);
+        BufferUtil::write16(buffer, (quint16)vScroll);
         BufferUtil::write32(buffer, m_data.injectScroll.buttons);
-        break;
+    } break;
     case CMT_BACK_OR_SCREEN_ON:
         buffer.putChar(m_data.backOrScreenOn.action);
         break;

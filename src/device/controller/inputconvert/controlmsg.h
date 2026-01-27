@@ -65,7 +65,7 @@ public:
         AndroidMotioneventButtons buttons,
         QRect position,
         float pressure);
-    void setInjectScrollMsgData(QRect position, qint32 hScroll, qint32 vScroll, AndroidMotioneventButtons buttons);
+    void setInjectScrollMsgData(QRect position, float hScroll, float vScroll, AndroidMotioneventButtons buttons);
     void setGetClipboardMsgData(ControlMsg::GetClipboardCopyKey copyKey); 
     void setSetClipboardMsgData(QString &text, bool paste);
     void setDisplayPowerData(bool on);
@@ -107,8 +107,8 @@ private:
             struct
             {
                 QRect position;
-                qint32 hScroll;
-                qint32 vScroll;
+                float hScroll;
+                float vScroll;
                 AndroidMotioneventButtons buttons;
             } injectScroll;
             struct

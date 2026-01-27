@@ -5,7 +5,7 @@
 class BufferUtil
 {
 public:
-    static void write16(QBuffer &buffer, quint32 value);
+    static void write16(QBuffer &buffer, quint16 value);
     static void write32(QBuffer &buffer, quint32 value);
     static void write64(QBuffer &buffer, quint64 value);
     static quint16 read16(QBuffer &buffer);
