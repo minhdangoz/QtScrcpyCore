@@ -25,6 +25,7 @@ public slots:
     void onInstallApkRequest(const QString &serial, const QString &apkFile);
 
 protected:
+    void onInstallArchiveRequest(const QString &serial, const QString &archiveFile);
     void onAdbProcessResult(qsc::AdbProcess* adb, bool isApk, qsc::AdbProcess::ADB_EXEC_RESULT processResult);
 
 signals:
